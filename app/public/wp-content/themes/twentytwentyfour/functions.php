@@ -205,4 +205,156 @@ endif;
 
 add_action( 'init', 'twentytwentyfour_pattern_categories' );
 
+function my_theme_style() {
+	wp_enqueue_style( 'my-theme-style' , get_theme_file_uri('style.css'));
+}
+add_action('wp_enqueue_scripts', 'my_theme_style');
+
+function create_projects_custom_post_type(){
+   register_post_type( 'projects',
+        array(
+            'labels' => array(
+                'name' => 'Projects',
+                'singular_name' => 'Project',
+            	'add_new' => 'Create Project',
+            	'add_new_item' => 'New Project',
+            	'edit_item' => 'Edit Project',
+            ),
+            'public' => true,
+            'hierarchical' => true,
+            'supports' => array('title','author', 'editor', 'custom-fields'),
+        )
+    );
+}
+add_action( 'init', 'create_projects_custom_post_type' );
+
+function create_community_sponsors_custom_post_type(){
+   register_post_type( 'community_sponsors',
+        array(
+            'labels' => array(
+                'name' => 'Community Sponsors',
+                'singular_name' => 'Community Sponsor',
+            	'add_new' => 'Create Community Sponsor',
+            	'add_new_item' => 'New Community Sponsors',
+            	'edit_item' => 'Edit Community Sponsors',
+            ),
+            'public' => true,
+            'hierarchical' => true,
+            'supports' => array('title','author', 'editor', 'custom-fields'),
+        )
+    );
+}
+add_action( 'init', 'create_community_sponsors_custom_post_type' );
+
+function output_project_preveiw_feed(){
+	// Query for all valid annoucements
+	// global $wpdb;
+	// $announcements = $wpdb->get_results("
+	// 	SELECT P.ID, P.post_author, P.post_date, P.post_title, P.post_content 
+	// 	FROM wp_posts AS P
+	// 	INNER JOIN wp_postmeta AS PM ON P.ID = PM.post_id
+	// 	WHERE P.post_status = 'publish'
+	// 	AND PM.meta_key = 'expiration_date' 
+	// 	AND  PM.meta_value >= " . date('Ymd') . "
+	// 	ORDER BY P.post_date DESC"
+	// );
+	// Sort announcements by priority
+	//foreach($announcements as $announcement){
+	// 	$announcement->priority = get_field('priority', $announcement->ID);
+	// }
+	// usort($announcements, "reverse_priority");
+	// Start building the html
+	ob_start();
+	?>
+	<div class="project-feed">
+		<div class="individual_project">
+
+			<div class="student-image-container">
+				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+			</div>
+			<div class="project-details">
+				<h2 class="student-name">John</h2>
+				<div class="project-title">My Project on Bees</div>
+				<div class="project-description">I did a movie on bees</div>
+			</div>
+			<div class="community-sponsor-container">
+				<h3 class="community-sponsor">Commmunity Sponsor</h3>
+				<p class="sponsor-foundation">Teton bees</p>
+				<p class="person-sponsoring">Tom Smith</p>
+				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+			</div>
+			<div class="individual_project">
+
+			<div class="student-image-container">
+				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+			</div>
+			<div class="project-details">
+				<h2 class="student-name">John</h2>
+				<div class="project-title">My Project on Bees</div>
+				<div class="project-description">I did a movie on bees</div>
+			</div>
+			<div class="community-sponsor-container">
+				<h3 class="community-sponsor">Commmunity Sponsor</h3>
+				<p class="sponsor-foundation">Teton bees</p>
+				<p class="person-sponsoring">Tom Smith</p>
+				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+			</div>
+			<div class="individual_project">
+
+			<div class="student-image-container">
+				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+			</div>
+			<div class="project-details">
+				<h2 class="student-name">John</h2>
+				<div class="project-title">My Project on Bees</div>
+				<div class="project-description">I did a movie on bees</div>
+			</div>
+			<div class="community-sponsor-container">
+				<h3 class="community-sponsor">Commmunity Sponsor</h3>
+				<p class="sponsor-foundation">Teton bees</p>
+				<p class="person-sponsoring">Tom Smith</p>
+				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+			</div>
+		</div>
+
+	<!-- 	<?php
+		if(empty($announcements)){
+			echo "There are no announcements at this time.";
+		}
+		else{ ?>
+			<table class="table table-hover"> <?php 
+			// Loop through each announcement and create a collapsable row
+			
+				foreach($announcements as $announcement){ ?>
+					<tr data-toggle="collapse" data-target="#accordion-<?php echo $announcement->ID;?>" class="clickable">
+						<td class="announcement-title">
+							<h3><?php echo $announcement->post_title;?></h3>
+						</td>
+						<td class="right-no-padding">
+							<?php
+							$post_date = str_replace('/', '-', $announcement->post_date);
+							$author = get_user_by('id', $announcement->post_author);
+		        			echo date("n/j/y", strtotime($post_date) ) . '</br>'. $author->data->display_name;
+							?>
+						</td>
+					</tr>
+					<tr>
+						<td id="accordion-<?php echo $announcement->ID;?>" class="collapse announcement-details">
+							<?php echo $announcement->post_content;?>
+						</td>
+					</tr><?php 
+				} ?>
+			</table><?php 
+		} ?> -->
+	</div>	
+	<?php
+	return ob_get_clean();
+}
+
+add_shortcode('jhcs_project_feed', 'output_project_preveiw_feed');
+
+
+
+
 /* rosey */
+/* piper */
