@@ -247,26 +247,26 @@ function create_community_sponsors_custom_post_type(){
 add_action( 'init', 'create_community_sponsors_custom_post_type' );
 
 function output_project_preveiw_feed(){
-	// Query for all valid annoucements
-	// global $wpdb;
-	// $announcements = $wpdb->get_results("
-	// 	SELECT P.ID, P.post_author, P.post_date, P.post_title, P.post_content 
-	// 	FROM wp_posts AS P
-	// 	INNER JOIN wp_postmeta AS PM ON P.ID = PM.post_id
-	// 	WHERE P.post_status = 'publish'
-	// 	AND PM.meta_key = 'expiration_date' 
-	// 	AND  PM.meta_value >= " . date('Ymd') . "
-	// 	ORDER BY P.post_date DESC"
-	// );
-	// Sort announcements by priority
-	//foreach($announcements as $announcement){
-	// 	$announcement->priority = get_field('priority', $announcement->ID);
-	// }
-	// usort($announcements, "reverse_priority");
-	// Start building the html
+
 	ob_start();
 	?>
 	<div class="project-feed">
+		<div class="individual_project">
+			<div class="student-image-container">
+				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+			</div>
+			<div class="project-details">
+				<h2 class="student-name">John</h2>
+				<div class="project-title">My Project on Bees</div>
+				<div class="project-description">I did a movie on bees</div>
+			</div>
+			<div class="community-sponsor-container">
+				<h3 class="community-sponsor">Commmunity Sponsor</h3>
+				<p class="sponsor-foundation">Teton bees</p>
+				<p class="person-sponsoring">Tom Smith</p>
+				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+			</div>
+		</div>
 		<div class="individual_project">
 
 			<div class="student-image-container">
@@ -283,23 +283,8 @@ function output_project_preveiw_feed(){
 				<p class="person-sponsoring">Tom Smith</p>
 				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
 			</div>
-			<div class="individual_project">
-
-			<div class="student-image-container">
-				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
-			</div>
-			<div class="project-details">
-				<h2 class="student-name">John</h2>
-				<div class="project-title">My Project on Bees</div>
-				<div class="project-description">I did a movie on bees</div>
-			</div>
-			<div class="community-sponsor-container">
-				<h3 class="community-sponsor">Commmunity Sponsor</h3>
-				<p class="sponsor-foundation">Teton bees</p>
-				<p class="person-sponsoring">Tom Smith</p>
-				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
-			</div>
-			<div class="individual_project">
+		</div>
+		<div class="individual_project">
 
 			<div class="student-image-container">
 				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
@@ -316,42 +301,66 @@ function output_project_preveiw_feed(){
 				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
 			</div>
 		</div>
-
-	<!-- 	<?php
-		if(empty($announcements)){
-			echo "There are no announcements at this time.";
-		}
-		else{ ?>
-			<table class="table table-hover"> <?php 
-			// Loop through each announcement and create a collapsable row
-			
-				foreach($announcements as $announcement){ ?>
-					<tr data-toggle="collapse" data-target="#accordion-<?php echo $announcement->ID;?>" class="clickable">
-						<td class="announcement-title">
-							<h3><?php echo $announcement->post_title;?></h3>
-						</td>
-						<td class="right-no-padding">
-							<?php
-							$post_date = str_replace('/', '-', $announcement->post_date);
-							$author = get_user_by('id', $announcement->post_author);
-		        			echo date("n/j/y", strtotime($post_date) ) . '</br>'. $author->data->display_name;
-							?>
-						</td>
-					</tr>
-					<tr>
-						<td id="accordion-<?php echo $announcement->ID;?>" class="collapse announcement-details">
-							<?php echo $announcement->post_content;?>
-						</td>
-					</tr><?php 
-				} ?>
-			</table><?php 
-		} ?> -->
 	</div>	
 	<?php
 	return ob_get_clean();
 }
 
 add_shortcode('jhcs_project_feed', 'output_project_preveiw_feed');
+
+function output_individual_project(){
+
+	ob_start();
+	?>
+<div class="jhcs_individual_project-page">
+	<!-- <div class="top-banner">
+		<div class="logo-and-sp-banner">
+			<img class="school-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA7D25AmfqmO6Yhysx8xBi1iicwifRGY5ecBmWMWQRjxQFsscoD3a8mMT68JDNzTkT&usqp=CAU">
+			<h1 class="senior-projects-header"></h1>
+		</div>
+		<div class="menu-bar">
+			<h3 class="home-button">Home</h3>
+			<h3 class="classes-button">Classes</h3>
+			<h3 class="honors-button">Honors</h3>
+		</div>
+	</div> -->
+	<div class="project-title-and-student">
+		<h1 class="project-title-name">My Project on Bees</h1>
+		<h2 class="student-name">John</h2>
+	</div>
+	<div class="photo-and-description">
+		<div class="student-image-container">
+			<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+		</div>
+		<div class="extended-project-description">I did a movie on the life span of female bees in Jackson Hole area and conducted research on the reproduction rates from 1997 to now
+		</div>
+	</div>
+	<div class="project-bottom-third">
+		<div class="photos-of-projects-or-links">
+			<h3 class="photos-of-projects-or-links-container-name">Photos of Projects or Links</h3>
+			<img class="project-photos" src="https://cdn.britannica.com/18/240418-050-38F9D3A5/plasterer-bee-Colletes-daviesanus.jpg">
+			<img class="project-photos" src="https://earthshotprize.org/wp-content/uploads/2023/05/bee-on-flower.jpg">
+			<img class="project-photos" src="https://i.guim.co.uk/img/media/c313242627c0777f34ce07182d31eb6d3fe12502/0_0_5760_3456/master/5760.jpg?width=1200&quality=85&auto=format&fit=max&s=8c29f34855fed1a29598750f87bc5475">
+			<a href="https://en.wikipedia.org/wiki/Bee">My Video on bees</a>
+		</div>
+		<div class="sponsor-and-where">
+			<div class="community-sponsor-container">
+				<h3 class="community-sponsor-box-title">Community Sponsors</h3>
+				<p class="name-of-community-sponsor">Teton Bees</p>
+				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+			</div>
+			<div class="where-are-they-now-container">
+				<h3 class="where-are-they-now-box-title">Where Are They Now?</h3>
+				<p class="where-are-they-now-text">Today John attends Middlebury College and studies biology</p>
+			</div>
+		</div>
+	</div>
+</div>	
+	<?php
+	return ob_get_clean();
+}
+
+add_shortcode('jhcs_individual_project', 'output_individual_project');
 
 
 
