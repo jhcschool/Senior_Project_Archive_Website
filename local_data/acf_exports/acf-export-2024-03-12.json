@@ -67,6 +67,25 @@
         "title": "Project Custom Fields",
         "fields": [
             {
+                "key": "field_65f0b3fd62a90",
+                "label": "Senior Name",
+                "name": "senior_name",
+                "type": "text",
+                "instructions": "",
+                "required": 1,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "Name",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
                 "key": "field_65de54601395a",
                 "label": "Is Honors?",
                 "name": "is_honors",
