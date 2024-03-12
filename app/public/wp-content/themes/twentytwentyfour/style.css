@@ -14,5 +14,99 @@ Text Domain: twentytwentyfour
 Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, featured-images, full-site-editing, block-patterns, rtl-language-support, sticky-post, threaded-comments, translation-ready, wide-blocks, block-styles, style-variations, accessibility-ready, blog, portfolio, news
 */
 h1 {
-	color: green;
+	color: black;
+}
+
+.project-feed{
+	max-width: 100% !important;
+}
+
+.individual_project{
+	display: flex;
+	flex-direction: row;
+	border: 4px solid black;
+	margin: 20px;
+	padding: 4px;
+	width: 100%;
+
+}
+
+.student-image-container{
+	width: 30%;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.student-image{
+	flex-wrap: wrap;
+	left:30px;
+	width: 100%;
+}
+
+
+.project-details{
+	padding-top: 10px;
+	width: 40%;
+}
+
+.community-sponsor-container{
+	padding-top: 10px;
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+}
+
+.sponsor-subtitle{
+	text-align: center;
+	font-family: lato;
+	font-size: 15px;
+
+}
+
+.community-sponsor{
+	font-family: inconsolata;
+	font-size: 17px;
+	color: #00274c;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+
+.sponsor-logo{
+	margin: auto;
+	width:45%;
+	align-self: center;
+}
+
+.person-sponsoring{
+	margin-left: 10px;
+}
+
+.project-details{
+	margin-bottom: 35px;
+	margin-left: 15px;
+}
+
+.student-name{
+	font-family: Merriweather;
+	font-weight: bold;
+	color: #00274c;
+	margin-bottom: 5px;
+	margin-top: 10px;
+    font-size: 30px;
+}
+
+.project-title{
+	font-family: lato;
+	font-weight: bold;
+	margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 17px;
+}
+
+.project-description{
+	font-family: lato;
+	font-size: 15px;
 }
