@@ -222,7 +222,7 @@ function create_projects_custom_post_type(){
             ),
             'public' => true,
             'hierarchical' => true,
-            'supports' => array('title','author', 'editor', 'custom-fields'),
+            'supports' => array('title','author', 'editor', 'custom-fields', 'thumbnail'),
         )
     );
 }
@@ -240,75 +240,62 @@ function create_community_sponsors_custom_post_type(){
             ),
             'public' => true,
             'hierarchical' => true,
-            'supports' => array('title','author', 'editor', 'custom-fields'),
+            'supports' => array('title','author', 'editor', 'custom-fields', 'thumbnail'),
         )
     );
 }
 add_action( 'init', 'create_community_sponsors_custom_post_type' );
 
 function output_project_preveiw_feed(){
-
+		$args = array('post_type' => 'projects');
+		$posts = get_posts($args);
 	ob_start();
 	?>
 	<div class="project-feed">
+	<?php foreach($posts as $post){ 
+	$community_sponsor_ID = get_field("community_sponsor",$post->ID);
+	$people_involved_names = get_field ("people_involved",$community_sponsor_ID);
+	$community_sponsor_data = get_post(get_field("community_sponsor",$post->ID)); ?>
 		<div class="individual_project">
+			<h1 class="graduation-year">Class of 2023</h1>
 			<div class="student-image-container">
-				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+				<?php echo get_the_post_thumbnail ($post->ID); ?>
 			</div>
 			<div class="project-details">
-				<h2 class="student-name">John</h2>
-				<div class="project-title">My Project on Bees</div>
-				<div class="project-description">I did a movie on bees</div>
+				<h2 class="student-name"><?php echo get_field("student_name",$post->ID); ?> </h2>
+				<div class="project-title"> <?php echo $post->post_title; ?> </div>
+				<div class="project-description"> <?php echo $post->post_content; ?> </div>
 			</div>
 			<div class="community-sponsor-container">
-				<h3 class="community-sponsor">Commmunity Sponsor</h3>
-				<p class="sponsor-foundation">Teton bees</p>
-				<p class="person-sponsoring">Tom Smith</p>
-				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+				<h3 class="community-sponsor"> Community Sponsor</h3>
+				<p class="sponsor-foundation"> <?php echo $community_sponsor_data->post_title; ?> </p>
+				<p class="person-sponsoring"><?php foreach($people_involved_names as $person){echo "<div>". $person["sponsors_name"]."</div>"; } ?></p>
+				<?php echo get_the_post_thumbnail($community_sponsor_ID); ?>
 			</div>
 		</div>
-		<div class="individual_project">
-
-			<div class="student-image-container">
-				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
-			</div>
-			<div class="project-details">
-				<h2 class="student-name">John</h2>
-				<div class="project-title">My Project on Bees</div>
-				<div class="project-description">I did a movie on bees</div>
-			</div>
-			<div class="community-sponsor-container">
-				<h3 class="community-sponsor">Commmunity Sponsor</h3>
-				<p class="sponsor-foundation">Teton bees</p>
-				<p class="person-sponsoring">Tom Smith</p>
-				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
-			</div>
-		</div>
-		<div class="individual_project">
-
-			<div class="student-image-container">
-				<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
-			</div>
-			<div class="project-details">
-				<h2 class="student-name">John</h2>
-				<div class="project-title">My Project on Bees</div>
-				<div class="project-description">I did a movie on bees</div>
-			</div>
-			<div class="community-sponsor-container">
-				<h3 class="community-sponsor">Commmunity Sponsor</h3>
-				<p class="sponsor-foundation">Teton bees</p>
-				<p class="person-sponsoring">Tom Smith</p>
-				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
-			</div>
-		</div>
-	</div>	
-	<?php
+<?php } 
 	return ob_get_clean();
 }
+
 
 add_shortcode('jhcs_project_feed', 'output_project_preveiw_feed');
 
 function output_individual_project(){
+
+		$args = array('post_type' => 'projects');
+		$posts = get_posts($args);
+		echo '<pre>';
+		print_r($posts[0]);
+		echo '</pre>';
+		$community_sponsor_data = get_post(get_field("community_sponsor",$posts[0]->ID));
+		echo '<pre>';
+		print_r($community_sponsor_data);
+		echo '</pre>';
+
+		echo '<pre>';
+		print_r(get_the_post_thumbnail(get_field("community_sponsor",$posts[0]->ID)));
+		echo '</pre>';
+
 
 	ob_start();
 	?>
@@ -325,33 +312,30 @@ function output_individual_project(){
 		</div>
 	</div> -->
 	<div class="project-title-and-student">
-		<h1 class="project-title-name">My Project on Bees</h1>
-		<h2 class="student-name">John</h2>
+		<h1 class="project-title-name"> <?php echo $posts[0]->post_title; ?> </h1>
+		<h2 class="student-name"> <?php echo get_field("student_name",$posts[0]->ID); ?></h2>
 	</div>
 	<div class="photo-and-description">
 		<div class="student-image-container">
-			<img class="student-image" src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg">
+			<?php echo get_the_post_thumbnail ($posts[0]->ID); ?>
 		</div>
-		<div class="extended-project-description">I did a movie on the life span of female bees in Jackson Hole area and conducted research on the reproduction rates from 1997 to now
+		<div class="extended-project-description">
 		</div>
 	</div>
 	<div class="project-bottom-third">
 		<div class="photos-of-projects-or-links">
-			<h3 class="photos-of-projects-or-links-container-name">Photos of Projects or Links</h3>
-			<img class="project-photos" src="https://cdn.britannica.com/18/240418-050-38F9D3A5/plasterer-bee-Colletes-daviesanus.jpg">
-			<img class="project-photos" src="https://earthshotprize.org/wp-content/uploads/2023/05/bee-on-flower.jpg">
-			<img class="project-photos" src="https://i.guim.co.uk/img/media/c313242627c0777f34ce07182d31eb6d3fe12502/0_0_5760_3456/master/5760.jpg?width=1200&quality=85&auto=format&fit=max&s=8c29f34855fed1a29598750f87bc5475">
-			<a href="https://en.wikipedia.org/wiki/Bee">My Video on bees</a>
+			<h3 class="photos-of-projects-or-links-container-name">Photos of Project or Links</h3>
+			<a href="<?php echo get_field("video_link",$posts[0]->ID); ?>">Project Link</a>
 		</div>
 		<div class="sponsor-and-where">
 			<div class="community-sponsor-container">
-				<h3 class="community-sponsor-box-title">Community Sponsors</h3>
-				<p class="name-of-community-sponsor">Teton Bees</p>
-				<img class="sponsor-logo" src="https://www.creativefabrica.com/wp-content/uploads/2020/12/16/Funny-Bee-Company-Logo-Template-Graphics-7199182-1-1.jpg">
+				<h3 class="community-sponsor-box-title">Community Sponsor</h3>
+				<p class="name-of-community-sponsor"> <?php echo $community_sponsor_data->post_title; ?> </p>
+				<?php echo get_the_post_thumbnail(get_field("community_sponsor",$posts[0]->ID)); ?>
 			</div>
 			<div class="where-are-they-now-container">
 				<h3 class="where-are-they-now-box-title">Where Are They Now?</h3>
-				<p class="where-are-they-now-text">Today John attends Middlebury College and studies biology</p>
+				<p class="where-are-they-now-text"><?php echo get_field("where_are_they_now",$posts[0]->ID); ?></p>
 			</div>
 		</div>
 	</div>
@@ -362,7 +346,22 @@ function output_individual_project(){
 
 add_shortcode('jhcs_individual_project', 'output_individual_project');
 
+function acf_load_community_sponsor_choices( $field ) {
+    $field['choices'] = array();
+    $community_sponsors = get_posts([
+      'post_type'   => 'community_sponsors',
+      'post_status' => 'publish',
+      'numberposts' => -1,
+    ]);
 
+    if( is_array($community_sponsors) ) {       
+        foreach( $community_sponsors as $community_sponsor) {         
+            $field['choices'][ $community_sponsor->ID ] = $community_sponsor->post_title;       
+        }
+    }
+    return $field;
+}
+add_filter('acf/load_field/name=community_sponsor', 'acf_load_community_sponsor_choices');
 
 
 /* rosey */
