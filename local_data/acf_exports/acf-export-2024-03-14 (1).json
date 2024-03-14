@@ -67,9 +67,9 @@
         "title": "Project Custom Fields",
         "fields": [
             {
-                "key": "field_65f0b3fd62a90",
-                "label": "Senior Name",
-                "name": "senior_name",
+                "key": "field_65ea31dd5a421",
+                "label": "Student Name",
+                "name": "student_name",
                 "type": "text",
                 "instructions": "",
                 "required": 1,
@@ -80,7 +80,7 @@
                     "id": ""
                 },
                 "default_value": "",
-                "placeholder": "Name",
+                "placeholder": "",
                 "prepend": "",
                 "append": "",
                 "maxlength": ""
@@ -144,7 +144,7 @@
                 "placeholder": "",
                 "prepend": "",
                 "append": "",
-                "min": 2010,
+                "min": 2007,
                 "max": 2100,
                 "step": 1
             },
@@ -171,6 +171,50 @@
                 "layout": "vertical",
                 "return_format": "value",
                 "save_other_choice": 0
+            },
+            {
+                "key": "field_65ea2dd24ecb9",
+                "label": "Community Sponsor",
+                "name": "community_sponsor",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "32": "sponsor2",
+                    "19": "Jackson Hole News and Guide"
+                },
+                "default_value": false,
+                "allow_null": 0,
+                "multiple": 0,
+                "ui": 0,
+                "return_format": "value",
+                "ajax": 0,
+                "placeholder": ""
+            },
+            {
+                "key": "field_65f0b3aee9975",
+                "label": "Where Are They Now?",
+                "name": "where_are_they_now",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
             }
         ],
         "location": [
