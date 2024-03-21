@@ -256,10 +256,9 @@ function output_project_preveiw_feed(){
 	$community_sponsor_ID = get_field("community_sponsor",$post->ID);
 	$people_involved_names = get_field ("people_involved",$community_sponsor_ID);
 	$community_sponsor_data = get_post(get_field("community_sponsor",$post->ID)); ?>
-		<div class="individual_project">
-			<h1 class="graduation-year">Class of 2023</h1>
+		<a class="individual_project" href="http://senior-project-archive.local/29-2/">
 			<div class="student-image-container">
-				<?php echo get_the_post_thumbnail ($post->ID); ?>
+				<?php echo get_the_post_thumbnail ($post->ID, "large", "class=student-project-feed-img"); ?>
 			</div>
 			<div class="project-details">
 				<h2 class="student-name"><?php echo get_field("student_name",$post->ID); ?> </h2>
@@ -268,11 +267,14 @@ function output_project_preveiw_feed(){
 			</div>
 			<div class="community-sponsor-container">
 				<h3 class="community-sponsor"> Community Sponsor</h3>
-				<p class="sponsor-foundation"> <?php echo $community_sponsor_data->post_title; ?> </p>
-				<p class="person-sponsoring"><?php foreach($people_involved_names as $person){echo "<div>". $person["sponsors_name"]."</div>"; } ?></p>
-				<?php echo get_the_post_thumbnail($community_sponsor_ID); ?>
+				<div class="sponsor-logo"> <?php echo get_the_post_thumbnail($community_sponsor_ID, "large", "class=community-sponsor-feed-img"); ?> </div>
+				<div class="sponsor-subtitle">
+					<p class="sponsor-foundation"><?php echo $community_sponsor_data->post_title; ?> </p>
+					<p class="person-sponsoring"><?php foreach($people_involved_names as $person){echo "<div>". $person["sponsors_name"]."</div>"; } ?></p>	
+				</div>
+				
 			</div>
-		</div>
+		</a>
 <?php } 
 	return ob_get_clean();
 }
@@ -281,20 +283,11 @@ function output_project_preveiw_feed(){
 add_shortcode('jhcs_project_feed', 'output_project_preveiw_feed');
 
 function output_individual_project(){
-
 		$args = array('post_type' => 'projects');
 		$posts = get_posts($args);
-		echo '<pre>';
-		print_r($posts[0]);
-		echo '</pre>';
+		$community_sponsor_ID = get_field("community_sponsor",$posts[0]->ID);
+		$people_involved_names = get_field ("people_involved",$community_sponsor_ID);
 		$community_sponsor_data = get_post(get_field("community_sponsor",$posts[0]->ID));
-		echo '<pre>';
-		print_r($community_sponsor_data);
-		echo '</pre>';
-
-		echo '<pre>';
-		print_r(get_the_post_thumbnail(get_field("community_sponsor",$posts[0]->ID)));
-		echo '</pre>';
 
 
 	ob_start();
@@ -317,7 +310,7 @@ function output_individual_project(){
 	</div>
 	<div class="photo-and-description">
 		<div class="student-image-container">
-			<?php echo get_the_post_thumbnail ($posts[0]->ID); ?>
+			<?php echo get_the_post_thumbnail ($posts[0]->ID, "large", "class=student-project-page-img"); ?>
 		</div>
 		<div class="extended-project-description">
 		</div>
@@ -331,7 +324,7 @@ function output_individual_project(){
 			<div class="community-sponsor-container">
 				<h3 class="community-sponsor-box-title">Community Sponsor</h3>
 				<p class="name-of-community-sponsor"> <?php echo $community_sponsor_data->post_title; ?> </p>
-				<?php echo get_the_post_thumbnail(get_field("community_sponsor",$posts[0]->ID)); ?>
+				<?php echo get_the_post_thumbnail(get_field("community_sponsor",$posts[0]->ID, "large", "class=community-sponsor-page-img")); ?>
 			</div>
 			<div class="where-are-they-now-container">
 				<h3 class="where-are-they-now-box-title">Where Are They Now?</h3>
